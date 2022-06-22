@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &service-name dockerhelloapp
+  labels: &labels
+    app: *service-name
+spec:
+  minReadySeconds: 1
+  selector:
+    matchLabels: *labels
+  replicas: 1
+  revisionHistoryLimit: 10
+  template: 
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+      - name: *service-name
+        image: ar025398/dockerhelloapp:v1
+        command: ["./binary"]
